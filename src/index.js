@@ -2,16 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Products from './components/products';
+import SingleProduct from './components/SingleProduct';
+import { AuthContextProvider } from './components/authentication';
+import Login from './components/Login';
+import CartPage from './components/cartPage';
+import Admin from './components/admin';
+import PaymentSuccess from './components/PaymentSuccess';
+import Orders from './components/Orders';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <AuthContextProvider>
+      <Routes>
+        <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Products />} />
+        <Route path="/FashionNova/Products/:ProductID" element={<SingleProduct />} />
+        <Route path="/FashionNova/CartPage" element={<CartPage />} />
+        <Route path="/FashionNova/admin" element={<Admin />} />
+        <Route path="/PaymentSuccess" element={<PaymentSuccess />} />
+        <Route path="/Orders" element={<Orders />} />
+      </Routes>
+    </AuthContextProvider>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
